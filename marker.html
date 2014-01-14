@@ -19,12 +19,14 @@
 function initialize() {
   var myLatlng = new google.maps.LatLng(49.2794056,-123.0684369);
   var mapOptions = {
-    zoom: 4,
+    zoom: 12,
     center: myLatlng
   }
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
   var marker = new google.maps.Marker({
+      draggable: true,
+      animation: google.maps.Animation.DROP,
       position: myLatlng,
       map: map,
       title: 'Hello World!'
