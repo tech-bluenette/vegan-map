@@ -1,0 +1,38 @@
+<!-- Google Maps API key: AIzaSyDucAhvBBvCCoBmzaugJ6W2oGzHBgLOjOA -->
+
+  <!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map-canvas { height: 100% }
+    </style>
+ <!--    The key parameter contains your application's API key. See Obtaining an API Key for more information. Note that this key is not the same key as used with the v2 API, and must be generated from the APIs console.
+
+  The sensor parameter of the URL must be included, and indicates whether this application uses a sensor (such as a GPS locator) to determine the user's location. We've left this example as a variable set_to_true_or_false to emphasize that you must set this value to either true or false explicitly. -->
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?AIzaSyDucAhvBBvCCoBmzaugJ6W2oGzHBgLOjOA=API_KEY&sensor=false">
+    </script>
+    <script type="text/javascript">
+    // There are two required options for every map: center and zoom.
+      function initialize() {
+        var mapOptions = {
+          // Because we want to center the map on a specific point, we create a LatLng object to hold this location by passing the location's coordinates in the order { latitude, longitude }:
+          // The process of turning an address into a geographic point is known as geocoding.
+          center: new google.maps.LatLng(-34.397, 150.644),
+          // The initial resolution at which to display the map is set by the zoom property, where zoom 0 corresponds to a map of the Earth fully zoomed out, and higher zoom levels zoom in at a higher resolution.
+          zoom: 8
+        };
+        var map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </head>
+  <body>
+ <!--   Note that the map-canvas div size is set to "100%" which will expand to fit the size on mobile devices. You may need to adjust these values based on the browser's screensize and padding. -->
+    <div id="map-canvas" style="width: 100%; height: 100%"/>
+  </body>
+</html>
