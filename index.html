@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>Simple markers</title>
+    <title>Complex icons</title>
     <style>
       html, body, #map-canvas {
         height: 100%;
@@ -12,23 +12,51 @@
       }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-    <script src="http://maps.googleapis.com/maps/api/geocode/json?address=1105+Commercial+Drive,+Vancouver,+BC&sensor=false"></script>
     <script>
-function initialize() {
-  var cherubimLatlng = new google.maps.LatLng(49.2746906,-123.0697235);
-  var mapOptions = {
-    zoom: 12,
-    center: cherubimLatlng
-  }
-  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-  var marker = new google.maps.Marker({
-      draggable: true,
-      animation: google.maps.Animation.DROP,
-      position: cherubimLatlng,
-      map: map,
-      title: 'Sweet Cherubim'
-  });
+
+function initialize() {
+  var mapOptions = {
+    zoom: 13,
+    center: new google.maps.LatLng(49.2746906, -123.0697235)
+  }
+  var map = new google.maps.Map(document.getElementById('map-canvas'),
+                                mapOptions);
+
+  setMarkers(map, locations);
+}
+
+ var locations = [
+      ['Sweet Cherubim', 49.2746906,-123.0697235, 4],
+      ['Bandidas Taqueria', 49.2597696,-123.0699644, 5],
+      ['Cafe Deux Soleil', 49.26603979999999,-123.0695303, 3],
+      ['Eternal Abundance', 49.2754665,-123.0697245, 2],
+      ['Scandilicious (vegan waffles!!)', 49.2724634,-123.0692378, 1]
+    ];
+
+function setMarkers(map, locations) {
+
+  // Shapes define the clickable region of the icon.
+  // The type defines an HTML &lt;area&gt; element 'poly' which
+  // traces out a polygon as a series of X,Y points. The final
+  // coordinate closes the poly by connecting to the first
+  // coordinate.
+  var shape = {
+      coord: [1, 1, 1, 20, 18, 20, 18 , 1],
+      type: 'poly'
+  };
+  for (var i = 0; i < locations.length; i++) {
+    var place = locations[i];
+    var myLatLng = new google.maps.LatLng(place[1], place[2]);
+
+    var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        title: place[0],
+        zIndex: place[3]
+    });
+  }
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
