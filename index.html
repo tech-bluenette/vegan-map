@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <link rel="stylesheet" type="text/css" href="style.css">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>Complex icons</title>
+    <title>Recommended Vegan Restaurants on Commercial Drive</title>
     <style>
       html, body, #map-canvas {
         height: 100%;
@@ -30,23 +31,20 @@ function initialize() {
       ['Sweet Cherubim', 49.2746906,-123.0697235, 4],
       ['Bandidas Taqueria', 49.2597696,-123.0699644, 5],
       ['Cafe Deux Soleil', 49.26603979999999,-123.0695303, 3],
-      ['Eternal Abundance', 49.2754665,-123.0697245, 2],
-      ['Scandilicious (vegan waffles!!)', 49.2724634,-123.0692378, 1]
+      ['Scandilicious (vegan waffles!!)', 49.2724634,-123.0692378, 1],
+      ['Eternal Abundance', 49.2754665,-123.0697245, 2]
+      
     ];
 
 function setMarkers(map, locations) {
 
-  // Shapes define the clickable region of the icon.
-  // The type defines an HTML &lt;area&gt; element 'poly' which
-  // traces out a polygon as a series of X,Y points. The final
-  // coordinate closes the poly by connecting to the first
-  // coordinate.
-  var shape = {
-      coord: [1, 1, 1, 20, 18, 20, 18 , 1],
-      type: 'poly'
-  };
+  console.log("Let's do this!!!!!!!111111 Locations: ", locations);
+
   for (var i = 0; i < locations.length; i++) {
     var place = locations[i];
+
+    console.log("In for loop. i is "+i+", place is ", place);
+
     var myLatLng = new google.maps.LatLng(place[1], place[2]);
 
     var marker = new google.maps.Marker({
@@ -56,8 +54,32 @@ function setMarkers(map, locations) {
         title: place[0],
         zIndex: place[3]
     });
+
+    attachInfo(marker, place);
+
+function attachInfo(marker, place) {
+    var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">'+ place[0] + '</h1>'+
+      '<div id="bodyContent">'+
+      '</div>'+
+      '</div>';
+
+
+
+  var infowindow = new google.maps.InfoWindow({
+    content: contentString
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.open(marker.get('map'), marker);
+  });
+}
+
   }
 }
+
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
